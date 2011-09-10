@@ -188,7 +188,7 @@ exports.tests = {
         })();
     },
     
-    'when closure is invoked it should have the scope of the object outside of sexy-args': function(finished, prefix) {
+    'should invoke the closure passed to sexy-args in the same scope as the object outside of sexy-args': function(finished, prefix) {
         function Person(attributes) {
             sexy.args([this, 'object1'], function() {
                 Parser.prototype._extend(this, attributes);
@@ -203,7 +203,7 @@ exports.tests = {
         equal('Benjamin', ben.name, "Ben's name was not set.");
     },
     
-    'optional default values can be set for arguments': function(finished, prefix) {
+    'should allow optional default values to be set': function(finished, prefix) {
         (function(foo, bar) {
             sexy.args([this, ['string1', 'number1'], 'number1'], {string1: 'foobar', number1: 7}, function() {
                 equal(32, bar, prefix + 'bar did not have value set properly');
@@ -211,5 +211,24 @@ exports.tests = {
                 finished();
             });
         })(32);
+    },
+    
+    'should extend default object properties rather than change the object being referenced': function(finished, prefix) {
+        (function(foo, bar) {
+            sexy.args(
+                [this, ['string1', 'object1'], 'object1'], 
+                {
+                    string1: 'foobar',
+                    object1: {a: 7, b: 'hello'}
+                }, 
+                function() {
+                    equal(7, bar.a, prefix + 'bar did not have value set properly');
+                    equal('sup', bar.b, prefix + 'bar did not have value set properly');
+                    equal('testing', bar.c, prefix + 'bar did not have value set properly');
+                    equal('hey', foo, prefix + 'foo did not default to foobar');
+                    finished();
+                }
+            );
+        })('hey', {b: 'sup', c: 'testing'});
     }
 }
