@@ -6,7 +6,7 @@ Motivation
 
 I was working on one of my Node.js libraries and noticed I was doing something silly:
 
-* Karait (https://github.com/bcoe/karait)
+*Karait (https://github.com/bcoe/karait)*
 
 ```javascript
 exports.Queue = function(params, onQueueReady) {
@@ -28,11 +28,11 @@ exports.Queue = function(params, onQueueReady) {
 }
 ```
 
-What a ton of ritual around dealing with optional and default parameters when declaring methods!
+There's ton of ritual around dealing with optional arguments and default parameters!
 
-I then did a little bit of a literature review, here's some examples:
+I then did a little literature review, and found this problem was pretty widespread:
 
-* Node MongoDB Native (https://github.com/christkv/node-mongodb-native)
+*Node MongoDB Native (https://github.com/christkv/node-mongodb-native)*
 
 ```javascript
 Collection.prototype.insertAll = function insertAll (docs, options, callback) {
@@ -42,7 +42,7 @@ Collection.prototype.insertAll = function insertAll (docs, options, callback) {
 }
 ```
 
-* Express (https://github.com/visionmedia/express)
+*Express (https://github.com/visionmedia/express)*
 
 ```javascript
 res.sendfile = function(path, options, fn){
@@ -59,7 +59,7 @@ res.sendfile = function(path, options, fn){
 };
 ```
 
-* JSDom (https://github.com/tmpvar/jsdom)
+*JSDom (https://github.com/tmpvar/jsdom)*
 
 ```javascript
 exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional], callback */) {
@@ -76,5 +76,80 @@ exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional
 
 We're all reinventing the wheel!
 
-The Solution, Sexy Arguments
+The Solution? Sexy Arguments
 ----------------------------
+
+sexy-args is a simple library and DSL for:
+
+* Handling optional parameters.
+* Enforcing types.
+* Handling default values.
+
+sexy-args enforces sane defaults:
+
+* Arrays default to [].
+* Objects default to {}.
+* functions default to function() {}.
+* Extend is used, by default when assigning default values for an object.
+
+Here's what those prior examples would look like if they were using sexy-args:
+
+*Karait*
+
+```javascript
+exports.Queue = function(params, onQueueReady) {
+	sexy.args([this, ['object1', 'function1'], 'function1'], {
+		object1: {
+			host: 'localhost',
+			port: 27017,
+			database: 'karait',
+			queue: 'messages',
+			averageMessageSize: 8192,
+			queueSize: 4096
+		}
+	}, function() {
+		
+	});
+}
+```
+
+*Express*
+
+```javascript
+res.sendfile = function(path, options, fn){
+	sexy.args([this, 'string1', ['object1', 'function1'], 'function1'], function() {
+		var self = this,
+			req = self.req,
+			next = this.req.next;
+	});
+};
+```
+
+*JSDom*
+
+```javascript
+exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional], callback */) {
+	sexy.args([this, 'object1', ['string1', 'function1'], 'function1'], function() {
+		var jQueryTag = window.document.createElement("script");
+	});
+}
+```
+
+I think this is much cleaner, which is the goal of sexy-args. Why repeat ourselves all the time when creating libraries?
+
+Contributing to sexy-args
+----------------------
+ 
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+Copyright
+---------
+
+Copyright (c) 2011 Attachments.me. See LICENSE.txt for
+further details.
