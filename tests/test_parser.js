@@ -21,7 +21,14 @@ exports.tests = {
         (function(foo, options, callback) {
             var parser = new Parser();
             
-            parser.run(this, arguments, argumentDescriptions, function() {});
+            parser.run({
+                originalContext: this,
+                originalArguments: arguments,
+                argumentDescriptions: argumentDescriptions,
+                callback: function() {},
+                defaults: {}
+            });
+            
             parser._createArgumentsToApplyObject();
             equal(0, parser.argumentsToApply.string1.index, prefix + 'string argument not in proper position');
             equal(1, parser.argumentsToApply.object1.index, prefix + 'object argument not in proper position');
@@ -199,6 +206,8 @@ exports.tests = {
     'optional default values can be set for arguments': function(finished, prefix) {
         (function(foo, bar) {
             sexy.args([this, ['string1', 'number1'], 'number1'], {string1: 'foobar', number1: 7}, function() {
+                equal(32, bar, prefix + 'bar did not have value set properly');
+                equal('foobar', foo, prefix + 'foo did not default to foobar');
                 finished();
             });
         })(32);
