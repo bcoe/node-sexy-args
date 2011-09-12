@@ -30,7 +30,7 @@ exports.Queue = function(params, onQueueReady) {
 
 There's a lot of ritual around dealing with optional arguments and default parameters!
 
-I then did a little literature review, and found this problem was pretty widespread:
+I did a little literature review, and found this problem was pretty widespread:
 
 *Node MongoDB Native (https://github.com/christkv/node-mongodb-native)*
 
@@ -74,8 +74,6 @@ exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional
 }
 ```
 
-We're all reinventing the wheel!
-
 The Solution? Sexy Arguments
 ----------------------------
 
@@ -91,6 +89,32 @@ sexy-args enforces sane defaults:
 * Objects default to {}.
 * functions default to function() {}.
 * Extend is used by default when assigning default values for an object.
+* The common optional options, callback, form is used by default:
+
+So,
+
+```javascript
+exports.func = function(options, callback) {
+    if (typeof(options) === 'function') {
+        callback = options;
+        options = {};
+    }
+	callback = callback || function() {};
+}
+```
+
+Becomes:
+
+```javascript
+exports.func = function(options, callback) {
+	sexy.args(function() {
+		
+	});
+}
+```
+
+A World With Sexy Arguments
+---------------------------
 
 Here's what those prior examples would look like if they were using sexy-args:
 
