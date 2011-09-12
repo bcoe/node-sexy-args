@@ -28,7 +28,7 @@ exports.Queue = function(params, onQueueReady) {
 }
 ```
 
-There's ton of ritual around dealing with optional arguments and default parameters!
+There's a lot of ritual around dealing with optional arguments and default parameters!
 
 I then did a little literature review, and found this problem was pretty widespread:
 
