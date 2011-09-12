@@ -44,15 +44,7 @@ exports.tests = {
                 equal('foo', bar,  prefix + 'bar was not equal to foo');
                 finished();
             });
-        })('bar', 'foo');
-        
-        (function(foo, bar) {
-            sexy.args([this], {}, function() {
-                equal('bar', foo, prefix + 'foo was not equal to bar');
-                equal('foo', bar,  prefix + 'bar was not equal to foo');
-                finished();
-            });
-        })('bar', 'foo');
+        })('bar', 'foo');        
     },
 
     'should return an error in the callback when the arguments fail to parse': function(finished, prefix) {
@@ -230,5 +222,17 @@ exports.tests = {
                 }
             );
         })('hey', {b: 'sup', c: 'testing'});
+    },
+    
+    'should default to the common optional options callback form': function(finished, prefix) {
+        (function(options, callback) {
+            sexy.args([this],
+                function() {
+                    equal('object', typeof(options), prefix + 'options did not have value set properly');
+                    equal('function', typeof(callback), prefix + 'callback did not have value set properly');
+                    finished();
+                }
+            );
+        })();
     }
 }

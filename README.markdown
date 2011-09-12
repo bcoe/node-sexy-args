@@ -107,7 +107,7 @@ Becomes:
 
 ```javascript
 exports.func = function(options, callback) {
-	sexy.args(function() {
+	sexy.args([this], function() {
 		
 	});
 }
