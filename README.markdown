@@ -39,6 +39,7 @@ Collection.prototype.insertAll = function insertAll (docs, options, callback) {
   if('function' === typeof options) callback = options, options = {};  
   if(options == null) options = {};
   if(!('function' === typeof callback)) callback = null;
+  // ... Function body.
 }
 ```
 
@@ -56,6 +57,7 @@ res.sendfile = function(path, options, fn){
     fn = options;
     options = {};
   }
+  // ... Function body.
 };
 ```
 
@@ -71,6 +73,7 @@ exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional
   if (args.length > 1 && typeof(args[1] === 'string')) {
     path = args[1];
   }
+  // ... Function body.
 }
 ```
 
@@ -100,6 +103,7 @@ exports.func = function(options, callback) {
         options = {};
     }
 	callback = callback || function() {};
+	// ... Function body.
 }
 ```
 
@@ -108,7 +112,7 @@ Becomes:
 ```javascript
 exports.func = function(options, callback) {
 	sexy.args([this], function() {
-		
+	// ... Function body.
 	});
 }
 ```
@@ -132,7 +136,7 @@ exports.Queue = function(params, onQueueReady) {
 			queueSize: 4096
 		}
 	}, function() {
-		
+	// ... Function body.
 	});
 }
 ```
@@ -145,6 +149,7 @@ res.sendfile = function(path, options, fn){
 		var self = this,
 			req = self.req,
 			next = this.req.next;
+  		// ... Function body.
 	});
 };
 ```
@@ -155,6 +160,7 @@ res.sendfile = function(path, options, fn){
 exports.jQueryify = exports.jsdom.jQueryify = function (window, path, callback) {
 	sexy.args([this, 'object1', ['string1', 'function1'], 'function1'], function() {
 		var jQueryTag = window.document.createElement("script");
+		// ... Function body.
 	});
 }
 ```
