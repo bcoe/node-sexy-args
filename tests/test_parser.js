@@ -194,5 +194,13 @@ exports.tests = {
         });
         
         equal('Benjamin', ben.name, "Ben's name was not set.");
+    },
+    
+    'optional default values can be set for arguments': function(finished, prefix) {
+        (function(foo, bar) {
+            sexy.args([this, ['string1', 'number1'], 'number1'], {string1: 'foobar', number1: 7}, function() {
+                finished();
+            });
+        })(32);
     }
 }

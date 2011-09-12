@@ -90,7 +90,7 @@ sexy-args enforces sane defaults:
 * Arrays default to [].
 * Objects default to {}.
 * functions default to function() {}.
-* Extend is used, by default when assigning default values for an object.
+* Extend is used by default when assigning default values for an object.
 
 Here's what those prior examples would look like if they were using sexy-args:
 
@@ -128,7 +128,7 @@ res.sendfile = function(path, options, fn){
 *JSDom*
 
 ```javascript
-exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional], callback */) {
+exports.jQueryify = exports.jsdom.jQueryify = function (window, path, callback) {
 	sexy.args([this, 'object1', ['string1', 'function1'], 'function1'], function() {
 		var jQueryTag = window.document.createElement("script");
 	});
