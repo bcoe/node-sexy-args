@@ -171,16 +171,16 @@ The DSL
 -------
 
 * The first parameter to the sexy.args closure is an array describing the method signature.
-* subarrays are used to describe optional parameters, e.g., [this, ['object1', 'function1'], function1] 
-** Indicates that the first parameter could be either an object or a function.
-** If the first parameter is an object, the second parameter can be a function.
+* subarrays are used to describe optional parameters, e.g., _[this, ['object1', 'function1'], 'function1']_ 
+  * Indicates that the first parameter could be either an object or a function.
+  * If the first parameter is an object, the second parameter can be a function.
 
 Default Values
 --------------
 
 * The second parameter given to the sexy.args closure is an object describing default values for each parameter.
 * the keys of the object correspond with the method signature, e.g., for [this, ['object1', 'function1'], function1]
-** {object1: {foo: 'bar'}} indicates that object1 should default to an object with a single key _foo_ equal to _bar_.
+  * {object1: {foo: 'bar'}} indicates that object1 should default to an object with a single key _foo_ equal to _bar_.
 
 Extends Functionality
 ---------------------
