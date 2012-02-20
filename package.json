@@ -4,7 +4,7 @@
     "lib": "./lib"
   },
   "main": "./lib/index",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Ben Coe <bencoe@gmail.com>",
   "engines": [
     "node"
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/bcoe/sexy-args.git"
+    "url": "git://github.com/bcoe/node-sexy-args.git"
   },
   "dependencies": {},
   "devDependencies": {}
