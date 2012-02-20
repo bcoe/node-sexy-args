@@ -80,7 +80,7 @@ exports.jQueryify = exports.jsdom.jQueryify = function (window /* path [optional
 The Solution? Sexy Arguments
 ----------------------------
 
-sexy-args is a simple library and DSL for:
+sexy-args is DSL for:
 
 * Handling optional parameters.
 * Enforcing types.
