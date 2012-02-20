@@ -4,7 +4,7 @@ Sexy Arguments
 Motivation
 ----------
 
-I was working on one of my Node.js libraries and noticed I was doing something silly:
+I was working on one of my JavaScript libraries and noticed I was doing something silly:
 
 *Karait (https://github.com/bcoe/karait)*
 
@@ -30,7 +30,7 @@ exports.Queue = function(params, onQueueReady) {
 
 There's a lot of ritual around dealing with optional arguments and default parameters!
 
-I did a little literature review, and found this problem was pretty widespread:
+I did a little digging, and found this problem was pretty widespread:
 
 *Node MongoDB Native (https://github.com/christkv/node-mongodb-native)*
 
@@ -92,7 +92,7 @@ sexy-args enforces sane defaults:
 * Objects default to {}.
 * functions default to function() {}.
 * Extend is used by default when assigning default values for an object.
-* The common optional options, callback, form is used by default:
+* The common [options, callback] method signature is used by default:
 
 So,
 
@@ -166,6 +166,36 @@ exports.jQueryify = exports.jsdom.jQueryify = function (window, path, callback) 
 ```
 
 I think this is much cleaner, which is the goal of sexy-args. Why repeat ourselves all the time when creating libraries?
+
+The DSL
+-------
+
+* The first parameter to the sexy.args closure is an array describing the method signature.
+* subarrays are used to describe optional parameters, e.g., [this, ['object1', 'function1'], function1] 
+** Indicates that the first parameter could be either an object or a function.
+** If the first parameter is an object, the second parameter can be a function.
+
+Default Values
+--------------
+
+* The second parameter given to the sexy.args closure is an object describing default values for each parameter.
+* the keys of the object correspond with the method signature, e.g., for [this, ['object1', 'function1'], function1]
+** {object1: {foo: 'bar'}} indicates that object1 should default to an object with a single key _foo_ equal to _bar_.
+
+Extends Functionality
+---------------------
+
+To simplify your life, sexy.args exposes a shorthand for extending objects.
+
+```javascript
+exports.foo = function(path, options, fn){
+	sexy.args([this, 'string1', ['object1', 'function1'], 'function1'], function() {
+		sexy.extend(this, options);
+	});
+};
+```
+
+The above code would extend an instance of _foo_ with the options object.
 
 Contributing to sexy-args
 ----------------------
