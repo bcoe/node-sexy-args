@@ -1,20 +1,5 @@
-var sexy = require('sexy-args'),
+var sexy = require('../lib/index'),
     puts = require('sys').puts;
-
-function extend(obj1, obj2, obj3, terminal) {
-    sexy.args([this, 'object1', 'object2', ['object3', 'boolean1'], 'boolean1'], function() {
-        if (!terminal) {
-           extend(obj2, obj3, true);
-           extend(obj1, obj2, true);
-        } else {
-            for (var key in obj2) {
-                if (obj2.hasOwnProperty(key)) {
-                    obj1[key] = obj2[key];
-                }
-            }
-        }
-    });
-}
 
 function Person(attributes) {
     sexy.args(
@@ -26,7 +11,7 @@ function Person(attributes) {
         },
         function() {
             this.transportation = 'walking';
-            extend(this, attributes);
+            sexy.extend(this, attributes);
         }
     );
 }
@@ -35,7 +20,7 @@ Person.prototype.updateInformation = function(name, age, attributes) {
     sexy.args([this, ['string1', 'number1', 'object1'], ['number1', 'object1'], 'object1'], function() {
         this.age = age || this.age;
         this.name = name || this.name;
-        extend(this, attributes, {'Does he like turtles?': true});
+        sexy.extend(this, attributes, {'Does he like turtles?': true});
     });
 };
 
@@ -51,7 +36,7 @@ var ben = new Person({
     name: 'Benjamin'
 });
 
-ben.updateInformation(27);
+ben.updateInformation(28);
 ben.updateInformation('Benjamin Coe', {
    hobbies: ['climbing']
 });
