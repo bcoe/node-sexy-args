@@ -165,7 +165,7 @@ exports.jQueryify = exports.jsdom.jQueryify = function (window, path, callback) 
 }
 ```
 
-I think this is much cleaner, which is the goal of sexy-args. Why repeat ourselves all the time when creating libraries?
+I think this is much cleaner, which is the goal of sexy-args. Why repeat ritualistic syntax over and over again.
 
 The DSL
 -------
