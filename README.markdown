@@ -136,7 +136,7 @@ exports.Queue = function(params, onQueueReady) {
 			queueSize: 4096
 		}
 	}, function() {
-	// ... Function body.
+		sexy.extend(this, params);
 	});
 }
 ```
