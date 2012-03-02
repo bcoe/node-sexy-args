@@ -18,6 +18,8 @@
     "type": "git",
     "url": "git://github.com/bcoe/node-sexy-args.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "micro-test": "1.0.0"
+  },
   "devDependencies": {}
 }
