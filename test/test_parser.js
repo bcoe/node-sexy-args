@@ -193,6 +193,7 @@ exports.tests = {
 		});
 		
 		equal('Benjamin', ben.name, "Ben's name was not set.");
+		finished();
 	},
 	
 	'should allow optional default values to be set': function(finished, prefix) {
@@ -222,6 +223,21 @@ exports.tests = {
 				}
 			);
 		})('hey', {b: 'sup', c: 'testing'});
+	},
+	
+	'the boolean value false being passed in should override a default boolean value of true': function(finished, prefix) {
+		(function(foo) {
+			sexy.args(
+				[this, 'object1'], 
+				{
+					object1: {a: true}
+				}, 
+				function() {
+					equal(false, foo.a, prefix + ' default values were too aggressive.');
+					finished();
+				}
+			);
+		})({a: false});
 	},
 	
 	'should default to the common optional options callback form': function(finished, prefix) {
