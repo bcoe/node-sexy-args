@@ -1,5 +1,5 @@
 var sexy = require('../lib/index'),
-    puts = require('sys').puts;
+    puts = require('util').puts;
 
 function Person(attributes) {
     sexy.args(
